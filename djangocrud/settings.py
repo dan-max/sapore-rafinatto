@@ -76,8 +76,15 @@ WSGI_APPLICATION = 'djangocrud.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'mssql',
+        'NAME': 'SAPORERAF',
+        'USER': 'sa',
+        'PASSWORD': '123456',
+        'HOST': 'DESKTOP-5J19SJA',
+        'PORT': '',
+        'OPTIONS':{
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
     }
 }
 
