@@ -1,26 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+<div class="container-fluid">
+  <h1 class="display-4 d-flex justify-content-center align-items-center">Platos a la carta</h1>
+<div class="row d-flex flex-wrap">
 
-<h1 class="display-4 d-flex justify-content-center align-items-center">Platos a la carta</h1>
-
-<ul>
     {% for task in tasks %}
-    <li>
-        <div class="card" style="width: 18rem;">
-            <img src="{% static 'imagenes\images.jpg' %}" class="card-img-top" alt="platillo">
-            <div class="card-body column d-flex justify-content-center align-items-center">
-              <h5 class="card-title"><a href="{% url 'task_detail' task.id %}"></h5>
-              <p class="card-text">{{task.title}}</p>
-            </div>
-            <div class="card-body column d-flex justify-content-center align-items-center">
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-    <p>{{task.datecompleted|date:'M j Y:i'}}</p>
-    </a>
-    </li>
+      
+        <div class="col-4 mt-5 mb-5 d-flex justify-content-center align-items-center">
+          
+            <div class="card" style="width: 14rem;">
+                <img src="{% static 'imagenes\images.jpg' %}" class="card-img-top" alt="platillo">
+                <div class="card-body column d-flex justify-content-center align-items-center">
+                  <h5 class="card-title"><a href="{% url 'task_detail' task.id %}">{{task.title}}</a></h5>
+                </div>
+                <div class="card-body column d-flex justify-content-center align-items-center">
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+        <p>{{task.datecompleted|date:'M j Y:i'}}</p>
+        </a>
+        
+        </div>
+      
+    
     {% endfor %}
-</ul>
+  </div>
+</div>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-FROM python:3.12.0-alphine3.18
+FROM python:3.11-alphine3.18
 WORKDIR /app
 
 RUN apk update \
