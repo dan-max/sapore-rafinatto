@@ -21,8 +21,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbar-toggler">
             <ul class="navbar-nav d-flex justify-content-center align-items-center ms-auto">
+              {% if user.is_authenticated %}
               <li class="nav-item">
-                {% if user.is_authenticated %}
                 <a class="nav-link active" aria-current="page" href="/task">Task</a>
               </li>
               <li class="nav-item">

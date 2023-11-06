@@ -56,11 +56,10 @@ figure.text-center.encabezado{
     
 }
 
-.nav-link:hover {
+.nav-item:hover .nav-link,
+.nav-item:hover .nav-link.active {
     background-color: rgb(13, 8, 8);
-}
-.nav-item:hover a {
-    color: #eaeef0;
+    color:#e5e9eb;
 }
 .home{
    
