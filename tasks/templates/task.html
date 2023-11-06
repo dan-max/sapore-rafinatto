@@ -10,25 +10,25 @@
         <div class="col-4 mt-5 mb-5 d-flex justify-content-center align-items-center">
           
             <div class="card" style="width: 14rem;">
-                <img src="{% static 'imagenes\images.jpg' %}" class="card-img-top" alt="platillo">
+                <img src="{% static task.image %}" class="card-img-top" alt="platillo">
                 <div class="card-body column d-flex justify-content-center align-items-center">
                   <h5 class="card-title"><a href="{% url 'task_detail' task.id %}">{{task.title}}</a></h5>
                 </div>
 
                 <div class="card-body column d-flex justify-content-center align-items-center">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Mas informacion</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal{{ task.id }}">Mas informacion</button>
 
                 <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal fade" id="taskModal{{ task.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="taskModalLabel{{ task.id }}" aria-hidden="true">
               <div class="modal-dialog">
               <div class="modal-content">
               <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">{{task.title}}</h1>
+              <h1 class="modal-title fs-5" id="taskModalLabel{{ task.id }}">{{task.title}}</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-              ...
+              {{task.description}}
               </div>
               <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -40,7 +40,7 @@
               </div>
               </div>
         <p>{{task.datecompleted|date:'M j Y:i'}}</p>
-        </a>
+        
         
         </div>
     {% endfor %}

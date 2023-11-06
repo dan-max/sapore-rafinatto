@@ -8,6 +8,7 @@ class Task(models.Model):
     datecompleted= models.DateTimeField(null=True, blank=True)
     important= models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image= models.ImageField(upload_to='photos', null=True)
+    image= models.ImageField(upload_to='imagenes', null=True)
+    
     def __str__(self):
         return self.title + ' - by ' + self.user.username
