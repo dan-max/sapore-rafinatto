@@ -32,6 +32,9 @@
 .encabesado{
     color: black;
 }
+figure.text-center.encabezado{
+    z-index: 50;
+}
 
 .cabeza{
     transform: translateY(0);
