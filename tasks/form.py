@@ -5,7 +5,5 @@ from django import forms
 class TaskForm(ModelForm):
     class Meta:
         model= Task
-        fields= ['title', 'description','image', 'important']
-        widgets = {
-            'image': forms.FileInput(attrs={'class': 'form-control-file'}),
-        }
+        fields= ['title', 'description','image']
+        

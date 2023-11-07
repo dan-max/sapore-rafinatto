@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tasks import views
+from django.conf import settings
+from django.conf.urls.static import static
 #aqui almacenamos nuestras vistas
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,3 +33,9 @@ urlpatterns = [
     path('task/<int:task_id>/delete', views.delete_task, name='delete_task'),
     path('task_completed/', views.task_completed, name='task_completed'),
 ]
+'''
+solo en desarrollo, en produccion hay que agregar un engine
+'''
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+    

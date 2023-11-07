@@ -37,12 +37,6 @@ def singup(request):
 
 @login_required
 
-def tasks (request):
-    tasks=Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'task.html', {'tasks': tasks})
-
-@login_required
-
 def singout(request):
     logout(request)
     return redirect('home')
@@ -69,24 +63,23 @@ def singin(request):
 
 @login_required
 
+def tasks (request):
+    tasks=Task.objects.filter(user=request.user, datecompleted__isnull=True)
+    return render(request, 'task.html', {'tasks': tasks})
+
+@login_required
+
 def create_task(request):
-    if request.method == 'GET':
-        return render(request, 'create_task.html', {
-            'form': TaskForm
-        })
-    else:
-        try:
-            form = TaskForm(request.POST)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, request.FILES)  # Asegúrate de incluir request.FILES para manejar los archivos.
+        if form.is_valid():
             new_task = form.save(commit=False)
             new_task.user = request.user
             new_task.save()
             return redirect('task')
-        except ValueError:
-
-            return render(request, 'create_task.html', {
-                'form': TaskForm,
-                'error': 'Please provide valid data'
-            })
+    else:
+        form = TaskForm()
+    return render(request, 'create_task.html', {'form': form})
 
 @login_required
 def task_detail(request, task_id):

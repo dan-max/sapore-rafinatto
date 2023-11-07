@@ -10,7 +10,7 @@
         <div class="col-4 mt-5 mb-5 d-flex justify-content-center align-items-center">
           
             <div class="card" style="width: 14rem;">
-                <img src="{% static task.image %}" class="card-img-top" alt="platillo">
+                <img src="{% static image.url %}" class="card-img-top" alt="platillo">
                 <div class="card-body column d-flex justify-content-center align-items-center">
                   <h5 class="card-title"><a href="{% url 'task_detail' task.id %}">{{task.title}}</a></h5>
                 </div>

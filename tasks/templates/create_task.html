@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
+{{error}}
+<main class="container">
+    <div class="row">
+    <h1 class="display-4 d-flex justify-content-center align-items-center">Agregar plato nuevo</h1>
+    <form action="/task/create/" method="POST" enctype="multipart/form-data">
 
-<h1>
-    Create Task
-</h1>
-<form action="/task/create/" method="POST">
     {% csrf_token %}
-    {{form}}
-    <button>
-        save
-    </button>
-</form>
-
-
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Nombre del platillo</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="">
+      </div>
+      <div class="mb-3">
+        <label for="descripcion">Descripcion</label>
+        <input type="text" name="description" id="description" class="form-control" placeholder="">
+  </div>
+    <div class="input-group mb-3">
+        
+        <input type="file" class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+      </div>
+    <button type="submit" class="btn btn-primary">Subir</button>
+    </form>
+    </div>
+</main>
 {% endblock %}
