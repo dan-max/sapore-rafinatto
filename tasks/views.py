@@ -65,7 +65,10 @@ def singin(request):
 def tasks (request):
     tasks=Task.objects.filter(user=request.user, datecompleted__isnull=True)
     images = subida.objects.all()
+    print("imagenes")
     print(images)
+    print("tasks")
+    print(tasks)
     return render(request, 'task.html', {'tasks': tasks, 'images': images})
 
 @login_required
