@@ -6,9 +6,13 @@ class Task(models.Model):
     description= models.TextField(blank=True)
     created= models.DateTimeField(auto_now_add=True)
     datecompleted= models.DateTimeField(null=True, blank=True)
-    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image= models.ImageField(upload_to='upload', null=True)
-    
+
     def __str__(self):
         return self.title + ' - by ' + self.user.username
+
+class subida(models.Model):
+    id_image=models.ForeignKey(Task, on_delete=models.CASCADE, null=True)
+    image=models.ImageField(upload_to='upload', null=True)
+    def __unicode__(self,):
+        return str(self.image)

@@ -3,8 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, request
 from django.contrib.auth import login, logout, authenticate
-from .form import TaskForm
-from .models import Task
+from .form import TaskForm, UploadImg
+from .models import Task, subida
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
@@ -62,38 +62,64 @@ def singin(request):
             return redirect('task')
 
 @login_required
-
 def tasks (request):
     tasks=Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'task.html', {'tasks': tasks})
+    images = subida.objects.all()
+    print(images)
+    return render(request, 'task.html', {'tasks': tasks, 'images': images})
 
 @login_required
 
 def create_task(request):
+    
     if request.method == 'POST':
-        form = TaskForm(request.POST, request.FILES)  # Asegúrate de incluir request.FILES para manejar los archivos.
-        if form.is_valid():
+        form = TaskForm(request.POST)  # Asegúrate de incluir request.FILES para manejar los archivos.
+        images= UploadImg(request.POST, request.FILES)
+        print("lee los modelos")
+        if form.is_valid() and images.is_valid():
+            print("los formularios son validos")
             new_task = form.save(commit=False)
             new_task.user = request.user
             new_task.save()
+            new_task2 = images.save(commit=False)
+            new_task2.id_image = new_task
+            new_task2.save()
+
             return redirect('task')
+        else:
+            print("Errores en el formulario TaskForm:", form.errors)
+            print("Errores en el formulario UploadImg:", images.errors)
     else:
         form = TaskForm()
-    return render(request, 'create_task.html', {'form': form})
+        images= UploadImg()
+        print("retorna else")
+    return render(request, 'create_task.html', {'form': form, 'images': images})
 
 @login_required
 def task_detail(request, task_id):
     task = get_object_or_404(Task, pk=task_id, user=request.user)
-    
+
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
-        if form.is_valid():
-            form.save()
+        images = UploadImg(request.POST, request.FILES, instance=task.subida_set.first())
+
+        if form.is_valid() and images.is_valid():
+            task = form.save(commit=False)
+            task.save()
+
+            image = images.save(commit=False)
+            image.id_image = task
+            image.save()
+
             return redirect("task")
+        else:
+            print("Errores en el formulario TaskForm:", form.errors)
+            print("Errores en el formulario UploadImg:", images.errors)
     else:
         form = TaskForm(instance=task)
+        images = UploadImg(instance=task.subida_set.first())
 
-    return render(request, 'task_detail.html', {'task': task, 'form': form})
+    return render(request, 'task_detail.html', {'task': task, 'form': form, 'images': images})
 
 @login_required
 

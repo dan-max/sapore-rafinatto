@@ -6,16 +6,17 @@
 <div class="row d-flex flex-wrap">
 
     {% for task in tasks %}
-      
+    
         <div class="col-4 mt-5 mb-5 d-flex justify-content-center align-items-center">
-          
             <div class="card" style="width: 14rem;">
-                <img src="{% static image.url %}" class="card-img-top" alt="platillo">
-                <div class="card-body column d-flex justify-content-center align-items-center">
+              <div class="imagecontainer">
+              <img src="{{ task.subida_set.first.image.url }}" alt="Imagen de la tarea" class="img-fluid rounded">
+              </div>
+                <div class="card-body column mx-auto">
                   <h5 class="card-title"><a href="{% url 'task_detail' task.id %}">{{task.title}}</a></h5>
                 </div>
 
-                <div class="card-body column d-flex justify-content-center align-items-center">
+                <div class="card-body column mx-auto">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal{{ task.id }}">Mas informacion</button>
 
@@ -44,6 +45,7 @@
         
         </div>
     {% endfor %}
+    
   </div>
 </div>
 
